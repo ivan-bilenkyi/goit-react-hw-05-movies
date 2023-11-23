@@ -12,7 +12,6 @@ export const Reviews = () => {
     }
     fetchCast();
   }, [movieId]);
-  console.log(reviews);
   return (
     <>
       {reviews.length !== 0 ? (
