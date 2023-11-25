@@ -32,4 +32,5 @@ export const GlobalStyle = createGlobalStyle`
     height: auto; 
   }
 
+
 `;

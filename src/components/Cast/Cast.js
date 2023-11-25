@@ -1,14 +1,19 @@
 import { fetchMovieCast } from 'api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
   useEffect(() => {
     async function fetchCast() {
-      const fechedCast = await fetchMovieCast(movieId);
-      setCast(fechedCast.cast);
+      try {
+        const fechedCast = await fetchMovieCast(movieId);
+        setCast(fechedCast.cast);
+      } catch (error) {
+        toast.error('Please Try Again');
+      }
     }
     fetchCast();
   }, [movieId]);
@@ -33,6 +38,7 @@ export const Cast = () => {
       ) : (
         <p>We don't have any cast for this movie</p>
       )}
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

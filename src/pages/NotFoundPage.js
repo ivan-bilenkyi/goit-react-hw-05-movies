@@ -1,10 +1,5 @@
-import { Link } from 'react-router-dom';
+import HomePage from './HomePage';
 
 export default function NotFoundPage() {
-  return (
-    <div>
-      Sorry! Error! Please use this <Link to="/">link</Link> to navigate to our
-      home page
-    </div>
-  );
+  return <HomePage />;
 }

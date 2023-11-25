@@ -1,4 +1,5 @@
 // import { Toaster } from 'react-hot-toast';
+import { Suspense } from 'react';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import { NavLink, Outlet } from 'react-router-dom';
@@ -20,7 +21,9 @@ export const AppLayout = () => {
       </header>
 
       <main>
-        <Outlet />
+        <Suspense fallback={<></>}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <GlobalStyle />

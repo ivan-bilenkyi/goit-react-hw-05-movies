@@ -1,14 +1,19 @@
 import { fetchMovieReviews } from 'api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     async function fetchCast() {
-      const fechedReviews = await fetchMovieReviews(movieId);
-      setReviews(fechedReviews.results);
+      try {
+        const fechedReviews = await fetchMovieReviews(movieId);
+        setReviews(fechedReviews.results);
+      } catch (error) {
+        toast.error('Please Try Again');
+      }
     }
     fetchCast();
   }, [movieId]);
@@ -28,6 +33,7 @@ export const Reviews = () => {
       ) : (
         <p>We don't have any reviews for this movie</p>
       )}
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

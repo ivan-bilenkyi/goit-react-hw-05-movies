@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { fetchMovies } from '../api';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 
 export default function HomePage() {
   const [films, setFilms] = useState([]);
+
   useEffect(() => {
-    if (films.length > 0) return;
     async function fetchMoviesData() {
       try {
-        const fetchedMovies = await fetchMovies();
-        setFilms(fetchedMovies.results);
+        const { results } = await fetchMovies();
+        setFilms(results);
       } catch (error) {
-      } finally {
+        toast.error('Please Try Again');
       }
     }
 
     fetchMoviesData();
-  }, [films]);
+  }, []);
 
   return (
-    <div>
-      <h2>Trending today</h2>
-      {films.length > 0 && <MoviesList films={films} />}
-    </div>
+    <>
+      <div>
+        <h2>Trending today</h2>
+        {films.length > 0 && <MoviesList films={films} />}
+      </div>
+      <Toaster position="top-right" reverseOrder={false} />
+    </>
   );
 }
